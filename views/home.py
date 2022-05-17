@@ -8,7 +8,7 @@ class home:
     def init(self):
         window = Tk()
         window.title("Procesamiento de cadenas mediante Automatas")
-        window.geometry('700x250')
+        window.geometry('600x600')
         
         #boton y campos de texto recibe datos
         lblPregunta = Label(window, text="Pregunta")
@@ -55,7 +55,7 @@ class home:
         
     def clickedAutoLex(self):
         self.cmpLex.delete('1.0', END)
-        cadenaOriginal = self.auto_lex.esValido(self.txtPregunta.get()) #retorno variables "error_palabra", "caracter_error", "estadoacp"
+        cadenaOriginal = self.automataController.esValido(self.txtPregunta.get()) #retorno variables "error_palabra", "caracter_error", "estadoacp"
         self.cmpLex.insert(INSERT, "Validación de la cadena:\n" + cadenaOriginal) 
         tokens1 = self.auto_lex.tokenizado() #retorno de la cadena de id's
         self.txtLexToken.insert(INSERT, tokens1)
