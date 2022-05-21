@@ -1,64 +1,222 @@
-from controllers.automataControllers import automataController
-from tkinter import *
+# from controllers.automataControllers import automataController
+import tkinter as tk
+import os
 
-class home:
+class Home:
     def __init__(self):
-        self.automataController = automataController()
+        self.window = tk.Tk()
+        self.btnLexicalAnalysisStatus = "normal"
+        self.btnSintacticAnalysisStatus = "disabled"
+        self.btnAnswerStatus = "disabled"
+    #     # self.automataController = automataController()
+    #     self.defaultFont = font.nametofont("TkDefaultFont")
+    #     self.defaultFont.configure(family="Segoe Script", size=19, weight=font.BOLD) 
     
-    def init(self):
-        window = Tk()
-        window.title("Procesamiento de cadenas mediante Automatas")
-        window.geometry('600x600')
+    def init(self): 
         
-        #boton y campos de texto recibe datos
-        lblPregunta = Label(window, text="Pregunta")
-        lblPregunta.grid(row=1, column=0)
-        self.txtPregunta = Entry(window, width=50)
-        self.txtPregunta.grid(row=1, column=1)
-        
-        #ventana validación lexica
-        lblEstado = Label(window, text="ESTADO ANÁLISIS LÉXICO")
-        lblEstado.grid(row=3, columnspan=2)
-        self.cmpLex = Text(window,width=43,height=4)
-        self.cmpLex.grid(row=4,columnspan=4)
-        
-        lblToken1 = Label(window, text="Token1")
-        lblToken1.grid(row=2, column=0)
-        self.txtLexToken = Entry(window, width=50)
-        self.txtLexToken.grid(row=2, column=1)
-        
-        btnAnaLex = Button(window, text="Análisis Léxico", command="self.clickedAnaLex")
-        btnAnaLex.grid(row=0, columnspan=2)
+        self.window.iconbitmap(os.path.abspath('resources/favicon.ico'))
+        self.window.title("Universidad Central - Ingeniería de sistemas")
+        self.window.geometry('500x600')
+        self.window.resizable(width=False, height=False)
 
-        lblToken2 = Label(window, text="Token2")
-        lblToken2.grid(row=8, column=0)
-        self.txtLexToken = Entry(window, width=50)
-        self.txtLexToken.grid(row=8, column=1)
+
+        tk.Label(self.window, 
+            text="Analizador de Lenguajes", 
+            font=("Calibri", 14, 'bold'), 
+            foreground="#FFFFFF", 
+            width=500,
+            background="#2980B9",
+            borderwidth=0
+        ).pack(ipadx=0, ipady=8)
+
+
+        self.mainFrame = tk.Frame(self.window)
+        self.mainFrame.pack(pady=20, padx=20, ipady=30)
+        self.mainFrame.config(bg="#FFFFFF", bd=0)
+
+
+        tk.Label(self.mainFrame, 
+            text="Por favor ingrese una pregunta", 
+            font=("Calibri", 13, 'bold'), 
+            foreground="#333333", 
+            background="#FFFFFF",
+            width=500,
+            borderwidth=0
+        ).pack(pady=(9,0))
+
+
+        self.question = tk.Text(self.mainFrame, 
+            font=("Calibri", 13),
+            bg="#FEFEFE",
+            foreground="#333333",
+            bd=1,
+            width=30,
+            height=1,
+            padx=8,
+            pady=6
+        )
+        self.question.pack(pady=(10,0))
+
+
+        self.btnLexicalAnalysis = tk.Button(self.mainFrame, 
+            text="Análisis Léxico",
+            bd=0,
+            fg="#FFFFFF",
+            padx=5,
+            bg="#3498DB",
+            font=("Calibri", 13),
+            state=self.btnLexicalAnalysisStatus
+        )
+        self.btnLexicalAnalysis.pack()
+        self.btnLexicalAnalysis.place(x=40, y=95)
+
+
+        self.btnSintacticAnalysis = tk.Button(self.mainFrame, 
+            text="Análisis Sintáctico",
+            bd=0,
+            fg="#FFFFFF",
+            padx=5,
+            bg="#1ABC9C",
+            font=("Calibri", 13),
+            state=self.btnSintacticAnalysisStatus
+        )
+        self.btnSintacticAnalysis.pack()
+        self.btnSintacticAnalysis.place(x=162, y=95)
+
+
+        self.btnAnswer = tk.Button(self.mainFrame, 
+            text="Responder",
+            bd=0,
+            fg="#FFFFFF",
+            padx=5,
+            bg="#229954",
+            font=("Calibri", 13),
+            state=self.btnAnswerStatus
+        )
+        self.btnAnswer.pack()
+        self.btnAnswer.place(x=309, y=95)
+
+
+        self.errorLabel = tk.Label(self.window, 
+            text="No hay errores de validación por mostrar...", 
+            font=("Calibri", 11, ''), 
+            foreground="#333333", 
+            width=400,
+            background="#FFFFFF",
+            borderwidth=0
+        ).pack(ipadx=0, ipady=8, padx=20)
+
+    
+        tk.Label(self.window, 
+            text="Resultados", 
+            font=("Calibri", 13, 'bold'), 
+            foreground="#333333", 
+            background="#FFFFFF",
+            width=400,
+            borderwidth=0
+        ).pack(ipadx=0, ipady=8, padx=20, pady=(20,0))
+
+
+        self.resultFrame = tk.Frame(self.window, bg="#FFFFFF", bd=0, width=400)
+        self.resultFrame.pack(pady=0, padx=20, ipady=30)
+
         
-        lblEstado = Label(window, text="ESTADO ANÁLISIS SINTÁCTICO")
-        lblEstado.grid(row=9, columnspan=2)
-        self.cmpLexSintactico = Text(window,width=43,height=4)
-        self.cmpLexSintactico.grid(row=10,columnspan=4)
-                      
-        lblToken2 = Label(window, text="Token3")
-        lblToken2.grid(row=12, column=0)
-        self.txtLexToken = Entry(window, width=50)
-        self.txtLexToken.grid(row=12, column=1)
+        self.title1 = tk.Label(self.resultFrame, 
+            text="Oración",
+            font=("Calibri", 13, 'bold'),
+            background="#FFFFFF"
+        )
+        self.sentence = tk.Label(self.resultFrame, 
+            text="------------------------------",
+            font=("Calibri", 13),
+            background="#FFFFFF"
+        )
+        self.title2 = tk.Label(self.resultFrame, 
+            text="Tokenización 1",
+            font=("Calibri", 13, 'bold'),
+            background="#FFFFFF"
+        )
+        self.token1 = tk.Label(self.resultFrame, 
+            text="------------------------------",
+            font=("Calibri", 13),
+            background="#FFFFFF"
+        )
+        self.title3 = tk.Label(self.resultFrame, 
+            text="Análisis léxico",
+            font=("Calibri", 13, 'bold'),
+            background="#FFFFFF"
+        )
+        self.lexicResult = tk.Label(self.resultFrame, 
+            text="------------------------------",
+            font=("Calibri", 13),
+            background="#FFFFFF"
+        )
+        self.title4 = tk.Label(self.resultFrame, 
+            text="Tokenización 2",
+            font=("Calibri", 13, 'bold'),
+            background="#FFFFFF"
+        )
+        self.token2 = tk.Label(self.resultFrame, 
+            text="------------------------------",
+            font=("Calibri", 13),
+            background="#FFFFFF"
+        )
+        self.title5 = tk.Label(self.resultFrame, 
+            text="Análisis sintáctico",
+            font=("Calibri", 13, 'bold'),
+            background="#FFFFFF"
+        )
+        self.sintacticResult = tk.Label(self.resultFrame, 
+            text="------------------------------",
+            font=("Calibri", 13),
+            background="#FFFFFF"
+        )
+        self.title6 = tk.Label(self.resultFrame, 
+            text="Tokenización 3",
+            font=("Calibri", 13, 'bold'),
+            background="#FFFFFF"
+        )
+        self.token3 = tk.Label(self.resultFrame, 
+            text="------------------------------",
+            font=("Calibri", 13),
+            background="#FFFFFF"
+        )
+        self.title7 = tk.Label(self.resultFrame, 
+            text="Respuesta",
+            font=("Calibri", 13, 'bold'),
+            background="#FFFFFF"
+        )
+        self.answer = tk.Label(self.resultFrame, 
+            text="------------------------------",
+            font=("Calibri", 13),
+            background="#FFFFFF"
+        )
         
-        lblEstado = Label(window, text="ESTADO RESPUESTA")
-        lblEstado.grid(row=14, columnspan=2)
-        self.cmpLexRespuesta = Text(window,width=43,height=4)
-        self.cmpLexRespuesta.grid(row=15,columnspan=4)
         
+        self.title1.grid(column=0, row=0)
+        self.sentence.grid(column=1, row=0)
+        self.title2.grid(column=0, row=1)
+        self.token1.grid(column=1, row=1)
+        self.title3.grid(column=0, row=2)
+        self.lexicResult.grid(column=1, row=2)
+        self.title4.grid(column=0, row=3)
+        self.token2.grid(column=1, row=3)
+        self.title5.grid(column=0, row=4)
+        self.sintacticResult.grid(column=1, row=4)
+        self.title6.grid(column=0, row=5)
+        self.token3.grid(column=1, row=5)
+        self.title7.grid(column=0, row=6)
+        self.answer.grid(column=1, row=6)
+
+
+        self.window.mainloop()
         
-        window.mainloop()
-        
-    def clickedAutoLex(self):
-        self.cmpLex.delete('1.0', END)
-        cadenaOriginal = self.automataController.esValido(self.txtPregunta.get()) #retorno variables "error_palabra", "caracter_error", "estadoacp"
-        self.cmpLex.insert(INSERT, "Validación de la cadena:\n" + cadenaOriginal) 
-        tokens1 = self.auto_lex.tokenizado() #retorno de la cadena de id's
-        self.txtLexToken.insert(INSERT, tokens1)
+    # def clickedAutoLex(self):
+    #     self.cmpLex.delete('1.0', END)
+    #     cadenaOriginal = self.automataController.esValido(self.txtPregunta.get()) #retorno variables "error_palabra", "caracter_error", "estadoacp"
+    #     self.cmpLex.insert(INSERT, "Validación de la cadena:\n" + cadenaOriginal) 
+    #     tokens1 = self.auto_lex.tokenizado() #retorno de la cadena de id's
+    #     self.txtLexToken.insert(INSERT, tokens1)
 
 
 """

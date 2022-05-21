@@ -1,4 +1,4 @@
-from views.home import home
+from views.home import Home
 
-home = home()
+home = Home()
 home.init()
