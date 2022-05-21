@@ -1,4 +1,4 @@
-# from controllers.automataControllers import automataController
+from controllers.lexicalAnalyser import LexicalAnalyser
 import tkinter as tk
 import os
 
@@ -8,15 +8,14 @@ class Home:
         self.btnLexicalAnalysisStatus = "normal"
         self.btnSintacticAnalysisStatus = "disabled"
         self.btnAnswerStatus = "disabled"
-    #     # self.automataController = automataController()
-    #     self.defaultFont = font.nametofont("TkDefaultFont")
-    #     self.defaultFont.configure(family="Segoe Script", size=19, weight=font.BOLD) 
+        self.lexicalAnalyser = LexicalAnalyser()
+        self.exitoMsg = "No hay errores de validación por mostrar..."
     
-    def init(self): 
-        
+    def setup(self):
+
         self.window.iconbitmap(os.path.abspath('resources/favicon.ico'))
         self.window.title("Universidad Central - Ingeniería de sistemas")
-        self.window.geometry('500x600')
+        self.window.geometry('500x520')
         self.window.resizable(width=False, height=False)
 
 
@@ -50,7 +49,7 @@ class Home:
             bg="#FEFEFE",
             foreground="#333333",
             bd=1,
-            width=30,
+            width=47,
             height=1,
             padx=8,
             pady=6
@@ -65,7 +64,8 @@ class Home:
             padx=5,
             bg="#3498DB",
             font=("Calibri", 13),
-            state=self.btnLexicalAnalysisStatus
+            state=self.btnLexicalAnalysisStatus,
+            command=self.lexicalAssistant
         )
         self.btnLexicalAnalysis.pack()
         self.btnLexicalAnalysis.place(x=40, y=95)
@@ -98,13 +98,14 @@ class Home:
 
 
         self.errorLabel = tk.Label(self.window, 
-            text="No hay errores de validación por mostrar...", 
+            text=self.exitoMsg, 
             font=("Calibri", 11, ''), 
             foreground="#333333", 
             width=400,
             background="#FFFFFF",
             borderwidth=0
-        ).pack(ipadx=0, ipady=8, padx=20)
+        )
+        self.errorLabel.pack(ipadx=0, ipady=8, padx=20)
 
     
         tk.Label(self.window, 
@@ -117,78 +118,127 @@ class Home:
         ).pack(ipadx=0, ipady=8, padx=20, pady=(20,0))
 
 
+        self.bgResults = tk.Label(self.window, 
+            text="--------------------", 
+            background="#FFFFFF",
+            borderwidth=0
+        )
+        self.bgResults.pack()
+        self.bgResults.place(x=20, y=310, width=460, height=190)
+
+
         self.resultFrame = tk.Frame(self.window, bg="#FFFFFF", bd=0, width=400)
-        self.resultFrame.pack(pady=0, padx=20, ipady=30)
+        self.resultFrame.pack()
 
         
         self.title1 = tk.Label(self.resultFrame, 
             text="Oración",
-            font=("Calibri", 13, 'bold'),
+            foreground="#333333",
+            font=("Calibri", 12, 'bold'),
             background="#FFFFFF"
         )
+
+
         self.sentence = tk.Label(self.resultFrame, 
-            text="------------------------------",
-            font=("Calibri", 13),
+            text="--------------------",
+            foreground="#333333",
+            font=("Calibri", 12),
             background="#FFFFFF"
         )
+
+
         self.title2 = tk.Label(self.resultFrame, 
             text="Tokenización 1",
-            font=("Calibri", 13, 'bold'),
+            foreground="#333333",
+            font=("Calibri", 12, 'bold'),
             background="#FFFFFF"
         )
+
+
         self.token1 = tk.Label(self.resultFrame, 
-            text="------------------------------",
-            font=("Calibri", 13),
+            text="--------------------",
+            foreground="#333333",
+            font=("Calibri", 12),
             background="#FFFFFF"
         )
+
+
         self.title3 = tk.Label(self.resultFrame, 
             text="Análisis léxico",
-            font=("Calibri", 13, 'bold'),
+            foreground="#333333",
+            font=("Calibri", 12, 'bold'),
             background="#FFFFFF"
         )
+
+
         self.lexicResult = tk.Label(self.resultFrame, 
-            text="------------------------------",
-            font=("Calibri", 13),
+            text="--------------------",
+            foreground="#333333",
+            font=("Calibri", 12),
             background="#FFFFFF"
         )
+
+
         self.title4 = tk.Label(self.resultFrame, 
             text="Tokenización 2",
-            font=("Calibri", 13, 'bold'),
+            foreground="#333333",
+            font=("Calibri", 12, 'bold'),
             background="#FFFFFF"
         )
+
+
         self.token2 = tk.Label(self.resultFrame, 
-            text="------------------------------",
-            font=("Calibri", 13),
+            text="--------------------",
+            foreground="#333333",
+            font=("Calibri", 12),
             background="#FFFFFF"
         )
+
+
         self.title5 = tk.Label(self.resultFrame, 
             text="Análisis sintáctico",
-            font=("Calibri", 13, 'bold'),
+            foreground="#333333",
+            font=("Calibri", 12, 'bold'),
             background="#FFFFFF"
         )
+
+
         self.sintacticResult = tk.Label(self.resultFrame, 
-            text="------------------------------",
-            font=("Calibri", 13),
+            text="--------------------",
+            foreground="#333333",
+            font=("Calibri", 12),
             background="#FFFFFF"
         )
+
+
         self.title6 = tk.Label(self.resultFrame, 
             text="Tokenización 3",
-            font=("Calibri", 13, 'bold'),
+            foreground="#333333",
+            font=("Calibri", 12, 'bold'),
             background="#FFFFFF"
         )
+
+
         self.token3 = tk.Label(self.resultFrame, 
-            text="------------------------------",
-            font=("Calibri", 13),
+            text="--------------------",
+            foreground="#333333",
+            font=("Calibri", 12),
             background="#FFFFFF"
         )
+
+
         self.title7 = tk.Label(self.resultFrame, 
             text="Respuesta",
-            font=("Calibri", 13, 'bold'),
+            foreground="#333333",
+            font=("Calibri", 12, 'bold'),
             background="#FFFFFF"
         )
+
+
         self.answer = tk.Label(self.resultFrame, 
-            text="------------------------------",
-            font=("Calibri", 13),
+            text="--------------------",
+            foreground="#333333",
+            font=("Calibri", 12),
             background="#FFFFFF"
         )
         
@@ -208,29 +258,8 @@ class Home:
         self.title7.grid(column=0, row=6)
         self.answer.grid(column=1, row=6)
 
-
+        self.window.geometry("+10+10")
         self.window.mainloop()
-        
-    # def clickedAutoLex(self):
-    #     self.cmpLex.delete('1.0', END)
-    #     cadenaOriginal = self.automataController.esValido(self.txtPregunta.get()) #retorno variables "error_palabra", "caracter_error", "estadoacp"
-    #     self.cmpLex.insert(INSERT, "Validación de la cadena:\n" + cadenaOriginal) 
-    #     tokens1 = self.auto_lex.tokenizado() #retorno de la cadena de id's
-    #     self.txtLexToken.insert(INSERT, tokens1)
 
-
-"""
-    def clickedEntero(self):
-        self.cmpResult.delete('1.0', END)
-        cadenaEntero = self.automataController.esEntero(self.txtEntero.get())
-        self.cmpResult.insert(INSERT, "Validación de entero:\n" + cadenaEntero)
-
-    def clickedCorreo(self):
-        self.cmpResult.delete('1.0', END)
-        cadenaCorreo = self.automataController.esReserved(self.txtCorreo.get())
-        self.cmpResult.insert(INSERT, "Validación de correo electrónico:\n" + cadenaCorreo)
-
-    def clickedIdentificador(self):
-        self.cmpResult.delete('1.0', END)
-        cadenaIdentificador = self.automataController.esId(self.txtIdentificador.get())
-        self.cmpResult.insert(INSERT, "Validación de identificador\n" + cadenaIdentificador)"""
+    def lexicalAssistant(self): 
+        self.lexicalAnalyser.run(self)

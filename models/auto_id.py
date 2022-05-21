@@ -1,49 +1,53 @@
-class auto_Id:
+class Auto_Id:
 
     def __init__(self, texto):
         self.texto = texto
-        self.estadoFinal = "D"
+        self.estadosFinales = ["B","C","D"]
+        self.error = ""
+        self.correcto = False
+        self.process()
 
-    def isalpha(self, caracter):
-        # letra(letra|digito)
-        return (str.isalpha(caracter))
-
-    def is_id(self):
+    def process(self):
         self.estado = 'A'
 
         for i in range(0, len(self.texto)):
             self.transicion = self.texto[i]
 
             if self.estado == "A":
-
                 if self.isalpha(self.transicion):
                     self.estado = "B"
                 else:
-                    return "El carácter <" + self.transicion + "> en la posición " + str(i+1) + ", debe ser una letra"
-
+                    self.error = "carácter " + str(i+1)
+                    break
             elif self.estado == "B":
                 if self.isalpha(self.transicion):
-                    self.estado = "C" #letra
-                elif self.transicion.isnumeric:
-                    self.estado = "D"  #digito --> aqui deberia entrar en la pos 1, q2
+                    self.estado = "C"
+                elif self.transicion.isnumeric():
+                    self.estado = "D" #digito --> aqui deberia entrar en la pos 1, q2
                 else:
-                    return "xxEl caracter <"+ self.transicion +">  en la posicion "+ str(+1) +", debe ser una letra o un digito"
+                    self.error = "carácter " + str(i+1)
+                    break
             elif self.estado == "C":
                 if self.isalpha(self.transicion):
                     self.estado = "C"
-                elif self.transicion.isnumeric:
+                elif self.transicion.isnumeric():
                     self.estado = "D"
                 else:
-                    return "El caracter <"+self.transicion+"> en la posicion "+str(i+1)+", debe ser una letra o un digito"
+                    self.error = "carácter " + str(i+1)
+                    break
             elif self.estado == "D":
-                if self.transicion.isnumeric:
+                if self.transicion.isnumeric():
                     self.estado = "D"
-                elif self.transicion == str.isalpha:
+                elif self.isalpha(self.transicion):
                     self.estado = "C"
                 else:
-                    return "El caracter <"+self.transicion+"> en la posicion "+str(i+1)+", debe ser una letra o un digito"
+                    self.error = "carácter " + str(i+1)
+                    break
 
-        if self.estado == self.estadoFinal:
-            return "Éxito: ¡El valor ingresado es un Identificador!"
+        if self.estado in self.estadosFinales and self.error == "":
+            self.correcto = True
         else:            
-            return "Error: El valor ingresado no es un Identificador, el automata no completo todos los estados"
+            self.correcto = False
+
+    def isalpha(self, caracter):
+        return (str.isalpha(caracter))
