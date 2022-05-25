@@ -1,5 +1,6 @@
 from controllers.lexicalAnalyser import LexicalAnalyser
 from controllers.sintacticAnalyser import SintacticAnalyser
+from controllers.answerAnalyser import AnswerAnalyser
 import tkinter as tk
 import os
 
@@ -8,6 +9,7 @@ class Home:
         self.window = tk.Tk()
         self.lexicalAnalyser = LexicalAnalyser()
         self.sintacticAnalyser = SintacticAnalyser()
+        self.answerAnalyser = AnswerAnalyser()
         self.exitoMsg = "No hay errores de validación por mostrar..."
     
     def setup(self):
@@ -91,7 +93,8 @@ class Home:
             padx=5,
             bg="#229954",
             font=("Calibri", 13),
-            state="disabled"
+            state="disabled",
+            command=self.answerAssistant
         )
         self.btnAnswer.pack()
         self.btnAnswer.place(x=309, y=95)
@@ -266,3 +269,6 @@ class Home:
 
     def sintacticAssistant(self):
         self.token2_Final = self.sintacticAnalyser.run(self)
+
+    def answerAssistant(self):
+        self.answerAnalyser.run(self)

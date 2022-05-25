@@ -1,0 +1,11 @@
+{
+    "datos": {
+        "ayuda": "buena conexion"
+    },
+    "palabras_asociadas": {
+        "necesitar": "ayuda"
+    },
+    "verbos": {
+        "colaborar": "necesitar"
+    }
+}
