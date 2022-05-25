@@ -33,26 +33,24 @@ class LexicalAnalyser:
                 elif autoId.correcto == True:
                     self.token1.append("id")
 
+        self.token1String = ' '.join([str(elem) for elem in self.token1])
+
     def printValues(self):
         self.home.sentence.config(text = self.question)
         self.home.token2.config(text = '--------------------')
         self.home.sintacticResult.config(text = '--------------------')
         self.home.token3.config(text = '--------------------')
         self.home.answer.config(text = '--------------------')
+        self.home.btnLexicalAnalysis.config(state = "normal")
+        self.home.btnAnswer.config(state = "disabled")
 
         if self.error == "": # Proceso exitoso
             self.home.errorLabel.config(text = self.home.exitoMsg)
-            self.home.token1.config(text = ' '.join([str(elem) for elem in self.token1]))
             self.home.lexicResult.config(text = "Oración correcta " + str(self.counter) + " Palabra(s) analizada(s)")
-
-            self.home.btnLexicalAnalysis.config(state = "normal")
             self.home.btnSintacticAnalysis.config(state = "normal")
-            self.home.btnAnswer.config(state = "disabled")
+            self.home.token1.config(text = self.token1String)
         else:
             self.home.errorLabel.config(text = self.error)
-            self.home.token1.config(text = 'Error')
             self.home.lexicResult.config(text = "Oración incorrecta " + str(self.counter) + " Palabra(s) analizada(s)")
-
-            self.home.btnLexicalAnalysis.config(state = "normal")
             self.home.btnSintacticAnalysis.config(state = "disabled")
-            self.home.btnAnswer.config(state = "disabled")
+            self.home.token1.config(text = 'Error')

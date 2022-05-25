@@ -262,7 +262,7 @@ class Home:
         self.window.mainloop()
 
     def lexicalAssistant(self): 
-        self.token1 = self.lexicalAnalyser.run(self)
+        self.token1_Final = self.lexicalAnalyser.run(self)
 
     def sintacticAssistant(self):
-        self.sintacticAnalyser.run(self)
+        self.token2_Final = self.sintacticAnalyser.run(self)

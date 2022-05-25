@@ -1,0 +1,26 @@
+[
+    {
+        "name": "DET", 
+        "content": ["que", "una", "el", "su", "un", "la"]
+    },
+    {
+        "name": "COP", 
+        "content": ["estar"]
+    },
+    {
+        "name": "ADJ", 
+        "content": ["encendido"]
+    },
+    {
+        "name": "N", 
+        "content": ["yo", "usted", "tema", "conexion", "internet", "bombillo", "router", "servicio", "mantenimiento", "encuesta", "satisfaccion"]
+    },
+    {
+        "name": "V", 
+        "content": ["colaborar", "tener", "desear", "responder"]
+    },
+    {
+        "name": "PREP", 
+        "content": ["en", "de"]
+    }
+]

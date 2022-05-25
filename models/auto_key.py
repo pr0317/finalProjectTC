@@ -5,7 +5,7 @@ class Auto_Key:
         self.estadoFinal = "B"
         self.error = ""
         self.correcto = False
-        self.keys = ["interrogacion", "no_pasado"] 
+        self.keys = ["interrogacion", "no_pasado", "plural", "a"] 
         self.process()
  
     def process(self):
