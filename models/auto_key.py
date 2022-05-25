@@ -14,7 +14,7 @@ class Auto_Key:
         if self.texto in self.keys:
             self.estado = "B"
         else:
-            self.error = "ninguno"
+            self.error = "No es key"
 
         if self.estado == self.estadoFinal and self.error == "":
             self.correcto = True

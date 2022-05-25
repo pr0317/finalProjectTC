@@ -1,14 +1,13 @@
 from controllers.lexicalAnalyser import LexicalAnalyser
+from controllers.sintacticAnalyser import SintacticAnalyser
 import tkinter as tk
 import os
 
 class Home:
     def __init__(self):
         self.window = tk.Tk()
-        self.btnLexicalAnalysisStatus = "normal"
-        self.btnSintacticAnalysisStatus = "disabled"
-        self.btnAnswerStatus = "disabled"
         self.lexicalAnalyser = LexicalAnalyser()
+        self.sintacticAnalyser = SintacticAnalyser()
         self.exitoMsg = "No hay errores de validación por mostrar..."
     
     def setup(self):
@@ -64,7 +63,7 @@ class Home:
             padx=5,
             bg="#3498DB",
             font=("Calibri", 13),
-            state=self.btnLexicalAnalysisStatus,
+            state="normal",
             command=self.lexicalAssistant
         )
         self.btnLexicalAnalysis.pack()
@@ -78,7 +77,8 @@ class Home:
             padx=5,
             bg="#1ABC9C",
             font=("Calibri", 13),
-            state=self.btnSintacticAnalysisStatus
+            state="disabled",
+            command=self.sintacticAssistant
         )
         self.btnSintacticAnalysis.pack()
         self.btnSintacticAnalysis.place(x=162, y=95)
@@ -91,7 +91,7 @@ class Home:
             padx=5,
             bg="#229954",
             font=("Calibri", 13),
-            state=self.btnAnswerStatus
+            state="disabled"
         )
         self.btnAnswer.pack()
         self.btnAnswer.place(x=309, y=95)
@@ -134,7 +134,7 @@ class Home:
         self.title1 = tk.Label(self.resultFrame, 
             text="Oración",
             foreground="#333333",
-            font=("Calibri", 12, 'bold'),
+            font=("Calibri", 10, 'bold'),
             background="#FFFFFF"
         )
 
@@ -142,7 +142,7 @@ class Home:
         self.sentence = tk.Label(self.resultFrame, 
             text="--------------------",
             foreground="#333333",
-            font=("Calibri", 12),
+            font=("Calibri", 10),
             background="#FFFFFF"
         )
 
@@ -150,7 +150,7 @@ class Home:
         self.title2 = tk.Label(self.resultFrame, 
             text="Tokenización 1",
             foreground="#333333",
-            font=("Calibri", 12, 'bold'),
+            font=("Calibri", 10, 'bold'),
             background="#FFFFFF"
         )
 
@@ -158,7 +158,7 @@ class Home:
         self.token1 = tk.Label(self.resultFrame, 
             text="--------------------",
             foreground="#333333",
-            font=("Calibri", 12),
+            font=("Calibri", 10),
             background="#FFFFFF"
         )
 
@@ -166,7 +166,7 @@ class Home:
         self.title3 = tk.Label(self.resultFrame, 
             text="Análisis léxico",
             foreground="#333333",
-            font=("Calibri", 12, 'bold'),
+            font=("Calibri", 10, 'bold'),
             background="#FFFFFF"
         )
 
@@ -174,7 +174,7 @@ class Home:
         self.lexicResult = tk.Label(self.resultFrame, 
             text="--------------------",
             foreground="#333333",
-            font=("Calibri", 12),
+            font=("Calibri", 10),
             background="#FFFFFF"
         )
 
@@ -182,7 +182,7 @@ class Home:
         self.title4 = tk.Label(self.resultFrame, 
             text="Tokenización 2",
             foreground="#333333",
-            font=("Calibri", 12, 'bold'),
+            font=("Calibri", 10, 'bold'),
             background="#FFFFFF"
         )
 
@@ -190,7 +190,7 @@ class Home:
         self.token2 = tk.Label(self.resultFrame, 
             text="--------------------",
             foreground="#333333",
-            font=("Calibri", 12),
+            font=("Calibri", 10),
             background="#FFFFFF"
         )
 
@@ -198,7 +198,7 @@ class Home:
         self.title5 = tk.Label(self.resultFrame, 
             text="Análisis sintáctico",
             foreground="#333333",
-            font=("Calibri", 12, 'bold'),
+            font=("Calibri", 10, 'bold'),
             background="#FFFFFF"
         )
 
@@ -206,7 +206,7 @@ class Home:
         self.sintacticResult = tk.Label(self.resultFrame, 
             text="--------------------",
             foreground="#333333",
-            font=("Calibri", 12),
+            font=("Calibri", 10),
             background="#FFFFFF"
         )
 
@@ -214,7 +214,7 @@ class Home:
         self.title6 = tk.Label(self.resultFrame, 
             text="Tokenización 3",
             foreground="#333333",
-            font=("Calibri", 12, 'bold'),
+            font=("Calibri", 10, 'bold'),
             background="#FFFFFF"
         )
 
@@ -222,7 +222,7 @@ class Home:
         self.token3 = tk.Label(self.resultFrame, 
             text="--------------------",
             foreground="#333333",
-            font=("Calibri", 12),
+            font=("Calibri", 10),
             background="#FFFFFF"
         )
 
@@ -230,7 +230,7 @@ class Home:
         self.title7 = tk.Label(self.resultFrame, 
             text="Respuesta",
             foreground="#333333",
-            font=("Calibri", 12, 'bold'),
+            font=("Calibri", 10, 'bold'),
             background="#FFFFFF"
         )
 
@@ -238,7 +238,7 @@ class Home:
         self.answer = tk.Label(self.resultFrame, 
             text="--------------------",
             foreground="#333333",
-            font=("Calibri", 12),
+            font=("Calibri", 10),
             background="#FFFFFF"
         )
         
@@ -262,4 +262,7 @@ class Home:
         self.window.mainloop()
 
     def lexicalAssistant(self): 
-        self.lexicalAnalyser.run(self)
+        self.token1 = self.lexicalAnalyser.run(self)
+
+    def sintacticAssistant(self):
+        self.sintacticAnalyser.run(self)
